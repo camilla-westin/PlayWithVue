@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import Slideshow from "@/components/Slideshow.vue";
+</script>
 
 <template>
-  <main></main>
+  <main>
+    <Slideshow />
+  </main>
 </template>
