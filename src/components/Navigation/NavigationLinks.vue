@@ -12,7 +12,7 @@ import { RouterLink } from "vue-router";
         <RouterLink to="/about" class="text-white text-sm">About</RouterLink>
       </li>
       <li>
-        <RouterLink to="/shop" class="text-white text-sm">Shop</RouterLink>
+        <RouterLink to="/movies" class="text-white text-sm">Movies</RouterLink>
       </li>
     </ul>
   </nav>
