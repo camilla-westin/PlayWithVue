@@ -1,6 +1,6 @@
 <script setup>
-import { StarIcon } from "@heroicons/vue/24/solid";
-import { defineProps } from "vue";
+import StarRating from "@/components/StarRating.vue";
+import { ref } from "vue";
 
 const props = defineProps({
   movie: {
@@ -8,6 +8,12 @@ const props = defineProps({
     required: true,
   },
 });
+
+const selectedRating = ref(0);
+
+const handleRating = (rating) => {
+  selectedRating.value = rating;
+};
 </script>
 
 <template>
@@ -29,11 +35,12 @@ const props = defineProps({
       <p class="text-xs">{{ movie.description }}</p>
 
       <div class="flex row gap-1 mt-4">
-        <span v-for="index in movie.rating" :key="index"
-          ><StarIcon class="h-4 text-yellow-500"
-        /></span>
+        <StarRating
+          :selectedRating="selectedRating"
+          @ratingClicked="handleRating"
+        />
       </div>
-      <span class="text-xs">Rating: {{ movie.rating }}/5</span>
+      <span class="text-xs">Rating: {{ selectedRating }}/5</span>
     </div>
   </div>
 </template>
