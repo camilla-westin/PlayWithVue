@@ -39,6 +39,12 @@ const generateUniqueId = () => {
 const handleFormCancelled = () => {
   formIsShown.value = false;
 };
+
+const handleDeletedMovie = (id) => {
+  movieItems.value.items = movieItems.value.items.filter(
+    (movie) => movie.id !== id
+  );
+};
 </script>
 
 <template>
@@ -57,7 +63,7 @@ const handleFormCancelled = () => {
       :key="movie.id"
       class="w-1/3 bg-white rounded-lg"
     >
-      <MovieCard :movie="movie" />
+      <MovieCard :movie="movie" @movieDeleted="handleDeletedMovie" />
     </li>
   </ul>
 

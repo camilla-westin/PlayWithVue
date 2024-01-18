@@ -1,7 +1,7 @@
 <script setup>
 import StarRating from "@/components/StarRating.vue";
-import { ref } from "vue";
-import { StarIcon } from "@heroicons/vue/24/solid";
+import { ref, defineEmits } from "vue";
+import { StarIcon, TrashIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {
@@ -10,6 +10,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["movieDeleted"]);
+
 const selectedRating = ref(0);
 const isRated = ref(false);
 
@@ -17,10 +19,14 @@ const handleRating = (rating) => {
   selectedRating.value = rating;
   isRated.value = true;
 };
+
+const deleteClicked = (id) => {
+  emit("movieDeleted", id);
+};
 </script>
 
 <template>
-  <div>
+  <div class="relative">
     <div class="relative h-72 overflow-hidden">
       <div class="absolute top-2 right-2 z-10 text-slate-400">
         <StarIcon class="h-10" :class="{ 'text-yellow-500': isRated }" />
@@ -51,6 +57,9 @@ const handleRating = (rating) => {
         />
       </div>
       <span class="text-xs">Rating: {{ selectedRating }}/5</span>
+      <button @click="deleteClicked(movie.id)">
+        <TrashIcon class="h-4 absolute bottom-2 right-2 text-slate-500" />
+      </button>
     </div>
   </div>
 </template>
