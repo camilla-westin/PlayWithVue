@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, onMounted, watchEffect, computed } from "vue";
 import Movies from "@/data/movies.json";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovie from "@/components/AddMovie.vue";
@@ -7,6 +7,7 @@ import AddMovie from "@/components/AddMovie.vue";
 const movieItems = ref({ items: [] });
 const formIsShown = ref(false);
 const totalMovies = ref();
+const movieRatings = ref([]);
 
 onMounted(async () => {
   try {
@@ -51,13 +52,28 @@ const handleDeletedMovie = (id) => {
     (movie) => movie.id !== id
   );
 };
+
+const handleRatingClick = (rating) => {
+  movieRatings.value.push(rating);
+};
+
+const averageRating = computed(() => {
+  if (movieRatings.value.length === 0) {
+    return 0;
+  }
+
+  const totalRating = movieRatings.value.reduce((acc, curr) => acc + curr);
+  return (totalRating / movieRatings.value.length).toFixed(1);
+});
 </script>
 
 <template>
   <div class="flex justify-between flex-wrap items-center">
     <h1 class="text-white text-3xl font-semibold">Movies</h1>
     <div class="flex gap-3 items-center">
-      <div class="text-white text-sm">Total Movies: {{ totalMovies }}</div>
+      <div class="text-white text-sm">
+        Total Movies: {{ totalMovies }} / Average rating: {{ averageRating }}
+      </div>
       <button
         @click="showForm"
         class="bg-vue-green py-2 px-3 text-white font-medium my-4 rounded"
@@ -72,7 +88,11 @@ const handleDeletedMovie = (id) => {
       :key="movie.id"
       class="w-1/3 bg-white rounded-lg"
     >
-      <MovieCard :movie="movie" @movieDeleted="handleDeletedMovie" />
+      <MovieCard
+        :movie="movie"
+        @movieDeleted="handleDeletedMovie"
+        @ratingClicked="handleRatingClick"
+      />
     </li>
   </ul>
 

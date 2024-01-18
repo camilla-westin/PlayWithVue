@@ -10,7 +10,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["movieDeleted"]);
+const emit = defineEmits(["movieDeleted", "ratingClicked"]);
 
 const selectedRating = ref(0);
 const isRated = ref(false);
@@ -18,6 +18,7 @@ const isRated = ref(false);
 const handleRating = (rating) => {
   selectedRating.value = rating;
   isRated.value = true;
+  emit("ratingClicked", rating);
 };
 
 const deleteClicked = (id) => {
