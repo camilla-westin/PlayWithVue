@@ -1,6 +1,7 @@
 <script setup>
 import StarRating from "@/components/StarRating.vue";
 import { ref } from "vue";
+import { StarIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {
@@ -10,15 +11,24 @@ const props = defineProps({
 });
 
 const selectedRating = ref(0);
+const isRated = ref(false);
 
 const handleRating = (rating) => {
   selectedRating.value = rating;
+  isRated.value = true;
 };
 </script>
 
 <template>
   <div>
     <div class="relative h-96 overflow-hidden">
+      <div class="absolute top-2 right-2 z-10 text-slate-400">
+        <StarIcon class="h-10" :class="{ 'text-yellow-500': isRated }" />
+        <span v-if="isRated" class="absolute top-2 right-4 text-black">{{
+          selectedRating
+        }}</span>
+        <span class="absolute top-2 right-4 text-black" v-else>-</span>
+      </div>
       <img :src="movie.image" class="absolute top-0 left-0" />
     </div>
     <div class="p-3">
