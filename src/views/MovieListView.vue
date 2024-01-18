@@ -1,18 +1,24 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import Movies from "@/data/movies.json";
 import MovieCard from "@/components/MovieCard.vue";
 import AddMovie from "@/components/AddMovie.vue";
 
-const movieItems = ref([]);
+const movieItems = ref({ items: [] });
 const formIsShown = ref(false);
+const totalMovies = ref();
 
 onMounted(async () => {
   try {
     movieItems.value = Movies;
+    totalMovies.value = movieItems.value.items.length;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
+});
+
+watchEffect(() => {
+  totalMovies.value = movieItems.value.items.length;
 });
 
 const showForm = () => {
@@ -50,12 +56,15 @@ const handleDeletedMovie = (id) => {
 <template>
   <div class="flex justify-between flex-wrap items-center">
     <h1 class="text-white text-3xl font-semibold">Movies</h1>
-    <button
-      @click="showForm"
-      class="bg-vue-green py-2 px-3 text-white font-medium my-4 rounded"
-    >
-      + Add Movie
-    </button>
+    <div class="flex gap-3 items-center">
+      <div class="text-white text-sm">Total Movies: {{ totalMovies }}</div>
+      <button
+        @click="showForm"
+        class="bg-vue-green py-2 px-3 text-white font-medium my-4 rounded"
+      >
+        + Add Movie
+      </button>
+    </div>
   </div>
   <ul class="flex flex-wrap place-items-flex gap-4 mt-8">
     <li
