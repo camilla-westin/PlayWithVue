@@ -9,8 +9,8 @@ import NavContainer from "@/components/Navigation/NavigationContainer.vue";
       <NavContainer />
     </div>
   </header>
-  <main class="bg-vue-almostblack p-4 h-screen">
-    <div class="max-w-screen-md m-auto">
+  <main class="bg-vue-almostblack p-4">
+    <div class="max-w-screen-md m-auto relative">
       <RouterView />
     </div>
   </main>

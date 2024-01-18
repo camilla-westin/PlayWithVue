@@ -21,7 +21,7 @@ const handleRating = (rating) => {
 
 <template>
   <div>
-    <div class="relative h-96 overflow-hidden">
+    <div class="relative h-72 overflow-hidden">
       <div class="absolute top-2 right-2 z-10 text-slate-400">
         <StarIcon class="h-10" :class="{ 'text-yellow-500': isRated }" />
         <span v-if="isRated" class="absolute top-2 right-4 text-black">{{
