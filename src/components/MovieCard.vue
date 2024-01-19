@@ -62,23 +62,28 @@ const editClicked = (id) => {
       </ul>
       <p class="text-xs">{{ movie.description }}</p>
 
-      <div class="flex row gap-1 mt-4">
-        <StarRating
-          :selectedRating="selectedRating"
-          @ratingClicked="handleRating"
-        />
-      </div>
-      <span class="text-xs">Rating: {{ selectedRating }}/5</span>
-      <div>
-        <button @click="editClicked(movie.id)">
-          <PencilSquareIcon
-            class="h-4 absolute bottom-2 right-6 text-slate-500"
+      <div class="flex justify-between items-end mt-4">
+        <div>
+          <StarRating
+            :selectedRating="selectedRating"
+            @ratingClicked="handleRating"
           />
-        </button>
+          <span class="text-xs">Rating: {{ selectedRating }}/5</span>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <button @click="editClicked(movie.id)">
+            <PencilSquareIcon
+              class="h-4 text-slate-500 hover:text-vue-green hover:transition-colors"
+            />
+          </button>
+          <button @click="deleteClicked(movie.id)">
+            <TrashIcon
+              class="h-4 text-slate-500 hover:text-vue-green hover:transition-colors"
+            />
+          </button>
+        </div>
       </div>
-      <button @click="deleteClicked(movie.id)">
-        <TrashIcon class="h-4 absolute bottom-2 right-2 text-slate-500" />
-      </button>
     </div>
   </div>
 </template>

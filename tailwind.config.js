@@ -9,6 +9,10 @@ export default {
         "vue-almostblack": "#1A1A1A",
         "vue-purple": "#8451d6",
       },
+      textColor: {
+        "vue-purple": "#8451d6",
+        "vue-green": "#3BB98F",
+      },
     },
   },
   plugins: [],

@@ -120,11 +120,11 @@ const handleMovieEdit = (data) => {
       </button>
     </div>
   </div>
-  <ul class="flex flex-wrap place-items-flex gap-4 mt-8">
+  <ul class="grid grid-cols-3 gap-4 mt-8">
     <li
       v-for="movie in movieItems.items"
       :key="movie.id"
-      class="w-1/3 bg-white rounded-lg"
+      class="bg-white rounded-lg"
     >
       <MovieCard
         :movie="movie"
