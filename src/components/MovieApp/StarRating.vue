@@ -1,5 +1,5 @@
 <script setup>
-import Star from "@/components/Star.vue";
+import Star from "@/components//MovieApp/Star.vue";
 import { ref, defineProps, defineEmits } from "vue";
 
 const props = defineProps({

@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted, watchEffect, computed, defineProps } from "vue";
 import Movies from "@/data/movies.json";
-import MovieCard from "@/components/MovieCard.vue";
-import AddMovie from "@/components/AddMovie.vue";
+import MovieCard from "@/components/MovieApp/MovieCard.vue";
+import AddMovie from "@/components/MovieApp/AddMovie.vue";
 
 const movieItems = ref({ items: [] });
 const formIsShown = ref(false);

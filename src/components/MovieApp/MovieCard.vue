@@ -1,5 +1,5 @@
 <script setup>
-import StarRating from "@/components/StarRating.vue";
+import StarRating from "@/components/MovieApp/StarRating.vue";
 import { ref, defineEmits, defineProps, onMounted } from "vue";
 import { StarIcon, TrashIcon, PencilSquareIcon } from "@heroicons/vue/24/solid";
 
