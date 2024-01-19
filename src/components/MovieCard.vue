@@ -1,7 +1,7 @@
 <script setup>
 import StarRating from "@/components/StarRating.vue";
-import { ref, defineEmits } from "vue";
-import { StarIcon, TrashIcon } from "@heroicons/vue/24/solid";
+import { ref, defineEmits, defineProps, onMounted } from "vue";
+import { StarIcon, TrashIcon, PencilSquareIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {
@@ -9,11 +9,17 @@ const props = defineProps({
     required: true,
   },
 });
+const emit = defineEmits(["movieDeleted", "ratingClicked", "editIsClicked"]);
 
-const emit = defineEmits(["movieDeleted", "ratingClicked"]);
-
-const selectedRating = ref(0);
+const selectedRating = ref();
 const isRated = ref(false);
+
+onMounted(() => {
+  selectedRating.value = props.movie.rating;
+  if (selectedRating.value > 0) {
+    isRated.value = true;
+  }
+});
 
 const handleRating = (rating) => {
   selectedRating.value = rating;
@@ -23,6 +29,11 @@ const handleRating = (rating) => {
 
 const deleteClicked = (id) => {
   emit("movieDeleted", id);
+};
+
+const editClicked = (id) => {
+  const edit = true;
+  emit("editIsClicked", { id, edit });
 };
 </script>
 
@@ -58,6 +69,13 @@ const deleteClicked = (id) => {
         />
       </div>
       <span class="text-xs">Rating: {{ selectedRating }}/5</span>
+      <div>
+        <button @click="editClicked(movie.id)">
+          <PencilSquareIcon
+            class="h-4 absolute bottom-2 right-6 text-slate-500"
+          />
+        </button>
+      </div>
       <button @click="deleteClicked(movie.id)">
         <TrashIcon class="h-4 absolute bottom-2 right-2 text-slate-500" />
       </button>

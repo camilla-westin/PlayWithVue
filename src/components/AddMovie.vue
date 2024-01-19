@@ -1,11 +1,47 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 
+const props = defineProps({
+  editMovieData: {
+    type: Object,
+    default: null,
+  },
+  editMode: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+// Create separate refs for each field
+const movieId = ref("");
 const movieName = ref("");
 const movieDescription = ref("");
 const movieImg = ref("");
 const movieGenres = ref([]);
 const movieInTheathers = ref("");
+
+// Watch for changes in editMovieData and update the refs accordingly
+watch(
+  () => props.editMovieData,
+  (newValue) => {
+    if (newValue) {
+      movieName.value = newValue.name || "";
+      movieDescription.value = newValue.description || "";
+      movieImg.value = newValue.image || "";
+      movieGenres.value = newValue.genres || [];
+      movieInTheathers.value = newValue.inTheathers || "";
+    } else {
+      // Reset the refs when editMovieData is null
+      movieName.value = "";
+      movieDescription.value = "";
+      movieImg.value = "";
+      movieGenres.value = [];
+      movieInTheathers.value = "";
+    }
+  },
+  { immediate: true } // Trigger the watch callback immediately
+);
+
 const movieGenresOptions = reactive([
   { text: "Drama", value: "Drama" },
   { text: "Crime", value: "Crime" },
@@ -22,6 +58,7 @@ const onSubmit = () => {
   }
 
   const movieData = {
+    id: props.editMovieData ? props.editMovieData.id : generateUniqueId(),
     name: movieName.value,
     description: movieDescription.value,
     image: movieImg.value,
@@ -31,14 +68,15 @@ const onSubmit = () => {
 
   emit("movieSubmitted", movieData);
 
-  movieName.value = null;
-  movieDescription.value = null;
-  movieImg.value = null;
-  movieGenres.value = null;
-  movieInTheathers.value = null;
+  clearForm();
 };
 
-const cancelForm = () => {
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
+
+const clearForm = () => {
+  movieId.value = null;
   movieName.value = null;
   movieDescription.value = null;
   movieImg.value = null;
@@ -119,7 +157,7 @@ const cancelForm = () => {
         <div class="flex justify-between flex-wrap">
           <button
             type="button"
-            @click="cancelForm"
+            @click="clearForm"
             class="bg-slate-200 py-1 px-3 font-medium my-4 rounded"
           >
             Cancel
@@ -128,7 +166,8 @@ const cancelForm = () => {
             type="submit"
             class="bg-vue-green py-1 px-3 text-white font-medium my-4 rounded"
           >
-            + Add
+            <span v-if="editMode">Update</span>
+            <span v-else>+ Add</span>
           </button>
         </div>
       </form>
