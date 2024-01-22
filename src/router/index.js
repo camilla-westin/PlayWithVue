@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: "font-bold",
   routes: [
     {
       path: "/",
@@ -18,6 +19,11 @@ const router = createRouter({
       path: "/movies",
       name: "movies",
       component: () => import("../views/MovieListView.vue"),
+    },
+    {
+      path: "/movie/:id",
+      name: "movie",
+      component: () => import("../views/MovieItemView.vue"),
     },
   ],
 });
