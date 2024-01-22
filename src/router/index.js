@@ -24,6 +24,7 @@ const router = createRouter({
       path: "/movie/:id",
       name: "movie",
       component: () => import("../views/MovieItemView.vue"),
+      props: (route) => ({ id: Number(route.params.id) }),
     },
   ],
 });
