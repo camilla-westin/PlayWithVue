@@ -61,6 +61,9 @@ const editClicked = (id) => {
         </li>
       </ul>
       <p class="text-xs">{{ movie.description }}</p>
+      <RouterLink :to="`/movie/${movie.id}`"
+        ><span class="text-xs underline">Read more..</span></RouterLink
+      >
 
       <div class="flex justify-between items-end mt-4">
         <div>
