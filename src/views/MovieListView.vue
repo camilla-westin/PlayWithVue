@@ -141,5 +141,6 @@ const handleMovieEdit = (data) => {
     @formCancelled="handleFormCancelled"
     :editMovieData="editMovieData"
     :editMode="editModeActive"
+    :formActive="formIsShown"
   />
 </template>

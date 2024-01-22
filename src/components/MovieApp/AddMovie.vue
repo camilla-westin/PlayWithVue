@@ -10,6 +10,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  formActive: {
+    type: Boolean,
+    defailt: false,
+  },
 });
 
 // Create separate refs for each field
@@ -19,8 +23,8 @@ const movieDescription = ref("");
 const movieImg = ref("");
 const movieGenres = ref([]);
 const movieInTheathers = ref("");
+const inputname = ref(null);
 
-// Watch for changes in editMovieData and update the refs accordingly
 watch(
   () => props.editMovieData,
   (newValue) => {
@@ -31,7 +35,6 @@ watch(
       movieGenres.value = newValue.genres || [];
       movieInTheathers.value = newValue.inTheathers || "";
     } else {
-      // Reset the refs when editMovieData is null
       movieName.value = "";
       movieDescription.value = "";
       movieImg.value = "";
@@ -39,7 +42,17 @@ watch(
       movieInTheathers.value = "";
     }
   },
-  { immediate: true } // Trigger the watch callback immediately
+  { immediate: true }
+);
+watch(
+  () => props.formActive,
+  (newValue) => {
+    if (newValue === true) {
+      setTimeout(() => {
+        inputname.value.focus();
+      }, 100);
+    }
+  }
 );
 
 const movieGenresOptions = reactive([
@@ -102,6 +115,7 @@ const clearForm = () => {
               v-model="movieName"
               placeholder="Movie name.."
               type="text"
+              ref="inputname"
             />
           </div>
           <div>
