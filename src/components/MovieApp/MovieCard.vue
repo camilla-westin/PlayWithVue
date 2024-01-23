@@ -1,11 +1,6 @@
 <script setup>
-import StarRating from "@/components/MovieApp/StarRating.vue";
 import { ref, defineEmits, defineProps, onMounted } from "vue";
-import {
-  TrashIcon,
-  PencilSquareIcon,
-  HeartIcon,
-} from "@heroicons/vue/24/solid";
+import { HeartIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {

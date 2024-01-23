@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watchEffect, computed } from "vue";
+import { ref, watchEffect, computed } from "vue";
 import { items } from "@/data/movies.json";
 import MovieCard from "@/components/MovieApp/MovieCard.vue";
 import AddMovie from "@/components/MovieApp/AddMovie.vue";
