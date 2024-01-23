@@ -12,11 +12,10 @@ const props = defineProps({
   },
   formActive: {
     type: Boolean,
-    defailt: false,
+    default: false,
   },
 });
 
-// Create separate refs for each field
 const movieId = ref("");
 const movieName = ref("");
 const movieDescription = ref("");
@@ -24,6 +23,66 @@ const movieImg = ref("");
 const movieGenres = ref([]);
 const movieInTheathers = ref("");
 const inputname = ref(null);
+
+const movieGenresOptions = reactive([
+  { text: "Drama", value: "Drama" },
+  { text: "Crime", value: "Crime" },
+  { text: "Action", value: "Action" },
+  { text: "Comedy", value: "Comedy" },
+]);
+
+const emit = defineEmits(["movieSubmitted", "formCancelled"]);
+
+const clearForm = () => {
+  movieId.value = null;
+  movieName.value = null;
+  movieDescription.value = null;
+  movieImg.value = null;
+  movieGenres.value = null;
+  movieInTheathers.value = null;
+
+  emit("formCancelled", "false");
+};
+
+const validateForm = () => {
+  if (!movieName.value || !movieDescription.value) {
+    console.error("Please fill in both fields");
+    return false;
+  }
+  return true;
+};
+
+watch(
+  () => props.formActive,
+  (newValue) => {
+    if (newValue === true) {
+      setTimeout(() => {
+        inputname.value.focus();
+      }, 100);
+    }
+  }
+);
+
+const onSubmit = () => {
+  if (!validateForm()) return;
+
+  const movieData = {
+    id: props.editMovieData ? props.editMovieData.id : generateUniqueId(),
+    name: movieName.value,
+    description: movieDescription.value,
+    image: movieImg.value,
+    genres: movieGenres.value,
+    inTheathers: movieInTheathers.value,
+  };
+
+  emit("movieSubmitted", movieData);
+
+  clearForm();
+};
+
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
 
 watch(
   () => props.editMovieData,
@@ -44,60 +103,6 @@ watch(
   },
   { immediate: true }
 );
-watch(
-  () => props.formActive,
-  (newValue) => {
-    if (newValue === true) {
-      setTimeout(() => {
-        inputname.value.focus();
-      }, 100);
-    }
-  }
-);
-
-const movieGenresOptions = reactive([
-  { text: "Drama", value: "Drama" },
-  { text: "Crime", value: "Crime" },
-  { text: "Action", value: "Action" },
-  { text: "Comedy", value: "Comedy" },
-]);
-
-const emit = defineEmits(["movieSubmitted", "formCancelled"]);
-
-const onSubmit = () => {
-  if (!movieName.value || !movieDescription.value) {
-    console.error("Fyll i båda fält");
-    return;
-  }
-
-  const movieData = {
-    id: props.editMovieData ? props.editMovieData.id : generateUniqueId(),
-    name: movieName.value,
-    description: movieDescription.value,
-    image: movieImg.value,
-    genres: movieGenres.value,
-    inTheathers: movieInTheathers.value,
-  };
-
-  emit("movieSubmitted", movieData);
-
-  clearForm();
-};
-
-const generateUniqueId = () => {
-  return Math.floor(Math.random() * 1000000);
-};
-
-const clearForm = () => {
-  movieId.value = null;
-  movieName.value = null;
-  movieDescription.value = null;
-  movieImg.value = null;
-  movieGenres.value = null;
-  movieInTheathers.value = null;
-
-  emit("formCancelled", "false");
-};
 </script>
 
 <template>

@@ -1,27 +1,18 @@
 <script setup>
-import { ref, onMounted, watchEffect, computed, defineProps } from "vue";
-import Movies from "@/data/movies.json";
+import { ref, onMounted, watchEffect, computed } from "vue";
+import { items } from "@/data/movies.json";
 import MovieCard from "@/components/MovieApp/MovieCard.vue";
 import AddMovie from "@/components/MovieApp/AddMovie.vue";
 
-const movieItems = ref({ items: [] });
+const movieItems = ref(items);
 const formIsShown = ref(false);
 const totalMovies = ref();
 const movieRatings = ref([]);
 const editMovieData = ref(null);
 const editModeActive = ref(false);
 
-onMounted(async () => {
-  try {
-    movieItems.value = Movies;
-    totalMovies.value = movieItems.value.items.length;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-});
-
 watchEffect(() => {
-  totalMovies.value = movieItems.value.items.length;
+  totalMovies.value = movieItems.value.length;
 });
 
 const showForm = () => {
@@ -30,12 +21,12 @@ const showForm = () => {
 
 const handleMovieSubmitted = (movieData) => {
   if (editModeActive.value) {
-    const existingMovieIndex = movieItems.value.items.findIndex(
+    const existingMovieIndex = movieItems.value.findIndex(
       (movie) => movie.id === movieData.id
     );
 
     if (existingMovieIndex !== -1) {
-      movieItems.value.items[existingMovieIndex] = {
+      movieItems.value[existingMovieIndex] = {
         id: movieData.id,
         name: movieData.name,
         description: movieData.description,
@@ -46,7 +37,7 @@ const handleMovieSubmitted = (movieData) => {
     }
     editModeActive.value = false;
   } else {
-    movieItems.value.items.push({
+    movieItems.value.push({
       id: generateUniqueId(),
       name: movieData.name,
       description: movieData.description,
@@ -68,9 +59,7 @@ const handleFormCancelled = () => {
 };
 
 const handleDeletedMovie = (id) => {
-  movieItems.value.items = movieItems.value.items.filter(
-    (movie) => movie.id !== id
-  );
+  movieItems.value = movieItems.value.filter((movie) => movie.id !== id);
 };
 
 const handleRatingClick = (rating) => {
@@ -88,7 +77,7 @@ const averageRating = computed(() => {
 
 const handleMovieEdit = (data) => {
   const { id, edit } = data;
-  const currentMovie = movieItems.value.items.find((movie) => movie.id === id);
+  const currentMovie = movieItems.value.find((movie) => movie.id === id);
 
   if (currentMovie && edit) {
     editMovieData.value = {
@@ -121,11 +110,7 @@ const handleMovieEdit = (data) => {
     </div>
   </div>
   <ul class="grid grid-cols-3 gap-4 mt-8">
-    <li
-      v-for="movie in movieItems.items"
-      :key="movie.id"
-      class="bg-white rounded-lg"
-    >
+    <li v-for="movie in movieItems" :key="movie.id" class="bg-white rounded-lg">
       <MovieCard
         :movie="movie"
         @movieDeleted="handleDeletedMovie"

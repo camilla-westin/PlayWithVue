@@ -18,12 +18,12 @@ const router = createRouter({
     {
       path: "/movies",
       name: "movies",
-      component: () => import("../views/MovieListView.vue"),
+      component: () => import("../views/MovieApp/MovieListView.vue"),
     },
     {
       path: "/movie/:id",
       name: "movie",
-      component: () => import("../views/MovieItemView.vue"),
+      component: () => import("../views/MovieApp/MovieDetailsView.vue"),
       props: (route) => ({ id: Number(route.params.id) }),
     },
   ],
