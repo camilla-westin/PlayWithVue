@@ -13,24 +13,30 @@ const movie = computed(() => movies.value.find((m) => m.id === props.id));
 
 <template>
   <div class="pt-32">
-    <article class="flex gap-8 max-w-screen-sm">
-      <div class="w-1/3">
-        <img :src="movie.image" :alt="movie.name" />
-      </div>
-      <div class="w-2/3">
-        <h1 class="text-3xl text-white">{{ movie.name }}</h1>
-        <ul class="flex flex-wrap gap-2 mt-4">
-          <li
-            v-for="genre in movie.genres"
-            :key="genre"
-            class="text-xs bg-vue-purple rounded-xl text-white p-2 py-1"
-          >
-            {{ genre }}
-          </li>
-        </ul>
-        <p class="mt-4 text-white">{{ movie.description }}</p>
-        <p class="mt-4 text-white text-sm">Rating: {{ movie.rating }}</p>
-      </div>
-    </article>
+    <VContainer>
+      <VRow justify="start">
+        <VCol col="3" offset="1"
+          ><VImg :src="movie.image" max-width="240" cover></VImg>
+          <p class="mt-4 text-sm">Rating: {{ movie.rating }}</p></VCol
+        >
+        <VCol cols="8">
+          <VCard width="560">
+            <h1 class="mt-2 text-3xl pl-3 pt-4">{{ movie.name }}</h1>
+            <p class="p-4">{{ movie.description }}</p>
+            <div class="px-3 pb-6">
+              <VChip
+                variant="outlined"
+                v-for="genre in movie.genres"
+                :key="genre"
+                class="mr-2"
+                color="#8451d6"
+              >
+                {{ genre }}
+              </VChip>
+            </div>
+          </VCard></VCol
+        >
+      </VRow>
+    </VContainer>
   </div>
 </template>
