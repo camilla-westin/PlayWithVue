@@ -95,30 +95,40 @@ const handleMovieEdit = (data) => {
 </script>
 
 <template>
-  <div class="flex justify-between flex-wrap items-center">
-    <h1 class="text-white text-3xl font-semibold">Movies</h1>
-    <div class="flex gap-3 items-center">
-      <div class="text-white text-sm">
-        Total Movies: {{ totalMovies }} / Average rating: {{ averageRating }}
-      </div>
-      <button
-        @click="showForm"
-        class="bg-vue-green py-2 px-3 text-white font-medium my-4 rounded"
+  <VContainer>
+    <VRow justify="space-between">
+      <VCol><h1 class="text-3xl font-semibold">Movies</h1></VCol>
+      <VCol>
+        <VRow align="center" justify="end">
+          <VCol
+            ><div class="text-sm text-right">
+              Total Movies: {{ totalMovies }} / Average rating:
+              {{ averageRating }}
+            </div></VCol
+          >
+          <VCol class="text-right v-col-3">
+            <VBtn @click="showForm" prepend-icon="mdi-plus" variant="tonal"
+              >Add movie</VBtn
+            ></VCol
+          >
+        </VRow>
+      </VCol>
+    </VRow>
+    <VRow>
+      <VCol
+        v-for="movie in movieItems"
+        :key="movie.id"
+        class="bg-white rounded-lg v-col-4"
       >
-        + Add Movie
-      </button>
-    </div>
-  </div>
-  <ul class="grid grid-cols-3 gap-4 mt-8">
-    <li v-for="movie in movieItems" :key="movie.id" class="bg-white rounded-lg">
-      <MovieCard
-        :movie="movie"
-        @movieDeleted="handleDeletedMovie"
-        @ratingClicked="handleRatingClick"
-        @editIsClicked="handleMovieEdit"
-      />
-    </li>
-  </ul>
+        <MovieCard
+          :movie="movie"
+          @movieDeleted="handleDeletedMovie"
+          @ratingClicked="handleRatingClick"
+          @editIsClicked="handleMovieEdit"
+        />
+      </VCol>
+    </VRow>
+  </VContainer>
 
   <AddMovie
     v-show="formIsShown"

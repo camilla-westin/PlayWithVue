@@ -17,7 +17,7 @@ const updateRating = (rating) => {
 </script>
 
 <template>
-  <div class="flex row gap-1">
+  <!-- <div class="flex row gap-1">
     <Star
       v-for="index in 5"
       :key="index"
@@ -25,5 +25,16 @@ const updateRating = (rating) => {
       :selectedRating="selectedRating"
       @click="updateRating(index)"
     />
-  </div>
+  </div> -->
+  <VRating
+    hover
+    :length="5"
+    :size="32"
+    :model-value="selectedRating"
+    empty-icon="mdi-heart-outline"
+    half-icon="mdi-heart-half-full"
+    active-color="red-lighten-3"
+    full-icon="mdi-heart"
+    @click="updateRating(index)"
+  />
 </template>

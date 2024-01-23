@@ -1,7 +1,11 @@
 <script setup>
 import StarRating from "@/components/MovieApp/StarRating.vue";
 import { ref, defineEmits, defineProps, onMounted } from "vue";
-import { StarIcon, TrashIcon, PencilSquareIcon } from "@heroicons/vue/24/solid";
+import {
+  TrashIcon,
+  PencilSquareIcon,
+  HeartIcon,
+} from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {
@@ -9,7 +13,7 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(["movieDeleted", "ratingClicked", "editIsClicked"]);
+const emit = defineEmits(["movieDeleted", "editIsClicked", "ratingClicked"]);
 
 const selectedRating = ref();
 const isRated = ref(false);
@@ -38,55 +42,66 @@ const editClicked = (id) => {
 </script>
 
 <template>
-  <div class="relative">
-    <div class="relative h-72 overflow-hidden">
-      <div class="absolute top-2 right-2 z-10 text-slate-400">
-        <StarIcon class="h-10" :class="{ 'text-yellow-500': isRated }" />
-        <span v-if="isRated" class="absolute top-2 right-4 text-black">{{
-          selectedRating
-        }}</span>
-        <span class="absolute top-2 right-4 text-black" v-else>-</span>
-      </div>
-      <img :src="movie.image" class="absolute top-0 left-0" />
+  <VCard>
+    <div v-if="isRated" class="absolute top-2 right-2 z-10 text-slate-400">
+      <HeartIcon class="h-10" :class="{ 'text-red-300': isRated }" />
+      <span class="absolute top-2 right-4 text-black">{{
+        selectedRating
+      }}</span>
     </div>
-    <div class="p-3">
-      <h2 class="font-medium py-2">{{ movie.name }}</h2>
-      <ul class="flex gap-2 pb-3">
-        <li
-          v-for="genre in movie.genres"
-          :key="genre"
-          class="text-xs bg-vue-purple rounded-xl text-white p-2 py-1"
-        >
-          {{ genre }}
-        </li>
-      </ul>
-      <p class="text-xs">{{ movie.description }}</p>
-      <RouterLink :to="`/movie/${movie.id}`"
-        ><span class="text-xs underline">Read more..</span></RouterLink
+    <VImg :src="movie.image" max-height="470" cover></VImg>
+    <VCardTitle class="mt-2">{{ movie.name }}</VCardTitle>
+    <div class="px-3">
+      <VChip
+        variant="outlined"
+        v-for="genre in movie.genres"
+        :key="genre"
+        class="mr-2"
+        color="#8451d6"
       >
-
-      <div class="flex justify-between items-end mt-4">
-        <div>
-          <StarRating
-            :selectedRating="selectedRating"
-            @ratingClicked="handleRating"
-          />
-          <span class="text-xs">Rating: {{ selectedRating }}/5</span>
-        </div>
-
-        <div class="flex items-center gap-1">
-          <button @click="editClicked(movie.id)">
-            <PencilSquareIcon
-              class="h-4 text-slate-500 hover:text-vue-green hover:transition-colors"
-            />
-          </button>
-          <button @click="deleteClicked(movie.id)">
-            <TrashIcon
-              class="h-4 text-slate-500 hover:text-vue-green hover:transition-colors"
-            />
-          </button>
-        </div>
-      </div>
+        {{ genre }}
+      </VChip>
     </div>
-  </div>
+
+    <VCardText>{{ movie.description }}</VCardText>
+    <VDivider color="info" :thickness="2"></VDivider>
+    <VRating
+      hover
+      :length="5"
+      :size="24"
+      :model-value="selectedRating"
+      v-model="selectedRating"
+      empty-icon="mdi-heart-outline"
+      half-icon="mdi-heart-half-full"
+      active-color="red-lighten-3"
+      full-icon="mdi-heart"
+      @click="handleRating(selectedRating)"
+      class="px-3 pt-3"
+    />
+    <VRow>
+      <VCol>
+        <v-card-actions>
+          <v-btn>
+            <RouterLink :to="`/movie/${movie.id}`">Read more</RouterLink></v-btn
+          >
+        </v-card-actions>
+      </VCol>
+      <VCol class="text-right">
+        <VBtn
+          @click="editClicked(movie.id)"
+          icon="mdi-pencil"
+          size="small"
+          class="mr-3"
+        >
+        </VBtn>
+        <VBtn
+          @click="deleteClicked(movie.id)"
+          icon="mdi-delete"
+          size="small"
+          class="mr-3"
+        >
+        </VBtn>
+      </VCol>
+    </VRow>
+  </VCard>
 </template>
