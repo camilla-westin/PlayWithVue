@@ -21,15 +21,7 @@ const movieName = ref("");
 const movieDescription = ref("");
 const movieImg = ref("");
 const movieGenres = ref([]);
-const movieInTheathers = ref("");
 const inputname = ref(null);
-
-const movieGenresOptions = reactive([
-  { text: "Drama", value: "Drama" },
-  { text: "Crime", value: "Crime" },
-  { text: "Action", value: "Action" },
-  { text: "Comedy", value: "Comedy" },
-]);
 
 const emit = defineEmits(["movieSubmitted", "formCancelled"]);
 
@@ -39,7 +31,6 @@ const clearForm = () => {
   movieDescription.value = null;
   movieImg.value = null;
   movieGenres.value = null;
-  movieInTheathers.value = null;
 
   emit("formCancelled", "false");
 };
@@ -72,7 +63,6 @@ const onSubmit = () => {
     description: movieDescription.value,
     image: movieImg.value,
     genres: movieGenres.value,
-    inTheathers: movieInTheathers.value,
   };
 
   emit("movieSubmitted", movieData);
@@ -92,13 +82,11 @@ watch(
       movieDescription.value = newValue.description || "";
       movieImg.value = newValue.image || "";
       movieGenres.value = newValue.genres || [];
-      movieInTheathers.value = newValue.inTheathers || "";
     } else {
       movieName.value = "";
       movieDescription.value = "";
       movieImg.value = "";
       movieGenres.value = [];
-      movieInTheathers.value = "";
     }
   },
   { immediate: true }
@@ -110,87 +98,28 @@ watch(
     <div
       class="modal fixed top-0 left-0 h-screen w-screen z-10 flex justify-center items-center"
     >
-      <div class="form w-1/2 bg-vue-dark-grey z-20 p-6">
-        <h2 class="text-2xl text-white font-semibold">Add movie</h2>
-        <form id="movieform" @submit.prevent="onSubmit">
-          <div>
-            <label for="name">Name</label>
-            <input
-              id="name"
-              v-model="movieName"
-              placeholder="Movie name.."
-              type="text"
-              ref="inputname"
-            />
-          </div>
-          <div>
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              v-model="movieDescription"
-              placeholder="Description.."
-            />
-          </div>
-          <div>
-            <label for="image">Image url</label>
-            <input
-              id="image"
-              v-model="movieImg"
-              placeholder="Url to image.."
-              type="text"
-            />
-          </div>
-
-          <div>
-            <label for="genres">Genres</label>
-            <select v-model="movieGenres" id="genres" multiple>
-              <option
-                v-for="option in movieGenresOptions"
-                :key="option.value"
-                :value="option.value"
-              >
-                {{ option.value }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <legend>In theathers</legend>
-            <div class="flex gap-2">
-              <input
-                type="radio"
-                id="yes"
-                value="true"
-                v-model="movieInTheathers"
-              />
-              <label for="yes">Yes</label>
-
-              <input
-                type="radio"
-                id="no"
-                value="false"
-                v-model="movieInTheathers"
-              />
-              <label for="no">No</label>
-            </div>
-          </div>
-          <div class="flex justify-between flex-wrap">
-            <button
-              type="button"
-              @click="clearForm"
-              class="bg-slate-200 py-1 px-3 font-medium my-4 rounded"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="bg-vue-green py-1 px-3 text-white font-medium my-4 rounded"
-            >
+      <div class="form w-1/2 bg-white z-20 p-10">
+        <h2 class="text-2xl font-semibold mb-2">Add movie</h2>
+        <VForm @submit.prevent="onSubmit">
+          <VTextField label="Name" ref="inputname" v-model="movieName">
+          </VTextField>
+          <VTextarea label="Description" v-model="movieDescription">
+          </VTextarea>
+          <VTextField label="Image Url" v-model="movieImg"></VTextField>
+          <v-select
+            label="Select genre"
+            :items="['Drama', 'Crime', 'Action', 'Sci-fi', 'Comedy', 'Horror']"
+            multiple
+            v-model="movieGenres"
+          ></v-select>
+          <VRow justify="space-between" class="mt-4 px-3">
+            <VBtn @click="clearForm">Cancel</VBtn>
+            <VBtn type="submit">
               <span v-if="editMode">Update</span>
               <span v-else>+ Add</span>
-            </button>
-          </div>
-        </form>
+            </VBtn>
+          </VRow>
+        </VForm>
       </div>
     </div>
   </Transition>
