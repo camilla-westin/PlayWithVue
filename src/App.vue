@@ -3,7 +3,7 @@ import { RouterView } from "vue-router";
 import NavContainer from "@/components/Navigation/NavigationContainer.vue";
 </script>
 
-<template>
+<!-- <template>
   <header>
     <div class="wrapper">
       <NavContainer />
@@ -14,4 +14,13 @@ import NavContainer from "@/components/Navigation/NavigationContainer.vue";
       <RouterView />
     </div>
   </main>
+</template> -->
+
+<template>
+  <VApp>
+    <!--side bar-->
+    <VMain>
+      <RouterView />
+    </VMain>
+  </VApp>
 </template>
