@@ -34,8 +34,8 @@ const movie = computed(() => movies.value.find((m) => m.id === props.id));
                 {{ genre }}
               </VChip>
             </div>
-          </VCard></VCol
-        >
+          </VCard>
+        </VCol>
       </VRow>
     </VContainer>
   </div>

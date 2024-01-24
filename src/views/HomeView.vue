@@ -1,5 +1,5 @@
 <script setup>
-import Slideshow from "@/components/Slideshow.vue";
+import Slideshow from "@/components/Carousels/Slideshow.vue";
 </script>
 
 <template>

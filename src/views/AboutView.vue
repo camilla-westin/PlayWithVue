@@ -1,19 +1,15 @@
 <script setup>
 import QuoteGenerator from "@/components/QuoteGenerator.vue";
+import Carousel from "@/components/Carousels/VCarousel.vue";
 </script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <QuoteGenerator />
-  </div>
+  <VContainer>
+    <VRow>
+      <h1 class="text-3xl font-semibold">About</h1>
+      <QuoteGenerator />
+      <Carousel />
+    </VRow>
+  </VContainer>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style></style>

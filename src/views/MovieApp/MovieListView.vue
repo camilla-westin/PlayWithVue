@@ -100,14 +100,16 @@ const handleMovieEdit = (data) => {
       <VCol><h1 class="text-3xl font-semibold">Movies</h1></VCol>
       <VCol>
         <VRow align="center" justify="end">
-          <VCol
-            ><div class="text-sm text-right">
+          <VCol class="text-right flex justify-end items-center">
+            <div class="text-xs text-right pr-4">
               Total Movies: {{ totalMovies }} / Average rating:
               {{ averageRating }}
-            </div></VCol
-          >
-          <VCol class="text-right v-col-3">
-            <VBtn @click="showForm" prepend-icon="mdi-plus" variant="tonal"
+            </div>
+            <VBtn
+              @click="showForm"
+              prepend-icon="mdi-plus"
+              variant="tonal"
+              class="bg-vue-purple"
               >Add movie</VBtn
             ></VCol
           >
@@ -139,3 +141,10 @@ const handleMovieEdit = (data) => {
     :formActive="formIsShown"
   />
 </template>
+
+<style>
+.bg-vue-purple {
+  background-color: #8451d6;
+  color: #fff;
+}
+</style>

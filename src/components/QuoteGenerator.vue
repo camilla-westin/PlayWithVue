@@ -32,9 +32,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center p-6">
-    <div class="text-center bg-pink-300 p-6">
-      <h2 class="text-center font-semibold pb-4">Quote of the day</h2>
+  <div class="flex items-center justify-center my-6">
+    <div class="text-center bg-pink-100 py-6 px-32">
+      <h2 class="text-center font-medium pb-4">Quote of the day</h2>
       <div v-for="quote in quotes" :key="quote.id">
         <span class="font-bold text-lg md:text-xl italic block"
           >"{{ quote.quote }}"</span
