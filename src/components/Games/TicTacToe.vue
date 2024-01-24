@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 
 let playerTurn = ref("X");
+
 const changeTurn = () => {
   if (playerTurn.value === "X") {
     playerTurn.value = "O";
@@ -37,7 +38,7 @@ const checkForWin = () => {
 };
 
 const chosenCell = (index) => {
-  if (cellValues.value[index] === null) {
+  if (cellValues.value[index] === null && winner.value === null) {
     cellValues.value[index] = playerTurn.value;
     checkForWin();
     changeTurn();
@@ -45,6 +46,12 @@ const chosenCell = (index) => {
 };
 
 let winner = computed(() => checkForWin());
+
+const resetGame = () => {
+  playerTurn.value = "X";
+  cellValues.value = Array(9).fill(null);
+  winner.value = null;
+};
 </script>
 
 <template>
@@ -67,6 +74,12 @@ let winner = computed(() => checkForWin());
           <span v-else-if="cellValues[index] == 'O'">O</span>
         </div>
       </div>
+      <button
+        @click="resetGame()"
+        class="mt-2 border px-3 py-2 bg-pink-700 font-semibold text-white"
+      >
+        Play again
+      </button>
     </div>
   </div>
 </template>
