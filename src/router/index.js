@@ -26,6 +26,11 @@ const router = createRouter({
       component: () => import("../views/MovieApp/MovieDetailsView.vue"),
       props: (route) => ({ id: Number(route.params.id) }),
     },
+    {
+      path: "/games",
+      name: "games",
+      component: () => import("../views/GamesView.vue"),
+    },
   ],
 });
 
