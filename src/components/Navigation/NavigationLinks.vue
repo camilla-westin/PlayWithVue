@@ -30,8 +30,16 @@ import { RouterLink } from "vue-router";
     <router-link to="/games">
       <v-list-item
         prepend-icon="mdi-gamepad-variant"
-        title="Games"
-        value="games"
+        title="TicTacToe"
+        value="tictactoe"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
+    <router-link to="/aquarium">
+      <v-list-item
+        prepend-icon="mdi-fish"
+        title="Aquarium"
+        value="aquarium"
         color="#000000"
       ></v-list-item>
     </router-link>
