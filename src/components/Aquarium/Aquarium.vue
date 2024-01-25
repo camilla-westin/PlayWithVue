@@ -16,7 +16,7 @@ const addFish = (fishData) => {
       <div class="aquarium-sidebar">
         <FishForm @submit-fish="addFish" />
       </div>
-      <div class="aquarium">
+      <div class="aquarium" ref="aquariumEl" id="aquarium">
         <div v-for="(fish, index) in fishies" :key="index">
           <Fish :fish="fish" />
         </div>
