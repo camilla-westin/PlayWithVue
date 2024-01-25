@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from "vue";
 import FishForm from "./FishForm.vue";
+import Fish from "./Fish.vue";
 
 const fishies = ref([]);
 
 const addFish = (fishData) => {
   fishies.value.push(fishData);
-  console.log(fishies.value);
 };
 </script>
 
@@ -16,7 +16,11 @@ const addFish = (fishData) => {
       <div class="aquarium-sidebar">
         <FishForm @submit-fish="addFish" />
       </div>
-      <div class="aquarium"></div>
+      <div class="aquarium">
+        <div v-for="(fish, index) in fishies" :key="index">
+          <Fish :fish="fish" />
+        </div>
+      </div>
     </div>
   </VContainer>
 </template>
@@ -33,10 +37,10 @@ const addFish = (fishData) => {
 .aquarium-sidebar {
   background: #203d7e;
   height: 100%;
-  width: 200px;
+  width: 300px;
 }
 .aquarium {
-  background: url(../../public/Aquarium/bg.jpg);
+  background: url(/Aquarium/bg.jpg);
   background-size: cover;
   height: 100%;
   width: 1024px;
