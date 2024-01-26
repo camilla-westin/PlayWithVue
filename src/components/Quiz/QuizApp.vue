@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import quizData from "@/data/quiz.json";
 
 const quiz = ref(quizData);
@@ -37,6 +37,15 @@ const nextQuestion = () => {
 const showScore = () => {
   scoreIsShown.value = true;
 };
+
+const resetQuiz = () => {
+  score.value = 0;
+  currentQuestionIndex.value = 0;
+  selectedAnswer.value = null;
+  isCorrectAnswer.value = false;
+  questionIsAnswered.value = false;
+  scoreIsShown.value = false;
+};
 </script>
 
 <template>
@@ -52,19 +61,41 @@ const showScore = () => {
         </v-radio-group>
       </div>
     </div>
-    <VBtn class="mr-4" @click="submitAnswer" v-if="!questionIsAnswered"
-      >Submit answer</VBtn
-    >
-    <div v-if="questionIsAnswered">
-      <span v-if="isCorrectAnswer">Correct!</span>
-      <span v-else>Incorrect!</span>
+    <div class="flex items-center">
+      <VBtn class="mr-4" @click="submitAnswer" v-if="!questionIsAnswered"
+        >Submit answer</VBtn
+      >
+
+      <div v-if="questionIsAnswered">
+        <span
+          v-if="isCorrectAnswer"
+          class="w-32 border-2 border-green-700 text-green-700 font-semibold py-2 px-4 mr-4"
+          >Correct</span
+        >
+        <span
+          v-else
+          class="w-32 border-2 border-red-800 text-red-800 font-semibold py-2 px-4 mr-4"
+          >Incorrect</span
+        >
+      </div>
+      <VBtn
+        @click="nextQuestion"
+        v-if="questionIsAnswered && currentQuestionIndex <= quiz.length - 2"
+      >
+        Next question</VBtn
+      >
+      <VBtn
+        v-else-if="
+          questionIsAnswered && currentQuestionIndex === quiz.length - 1
+        "
+        @click="showScore"
+      >
+        Show my result
+      </VBtn>
     </div>
-    <VBtn @click="nextQuestion" v-if="currentQuestionIndex <= quiz.length - 2"
-      >Next question</VBtn
-    >
-    <VBtn v-else @click="showScore">Show my result</VBtn>
   </VForm>
   <div v-else class="p-6 bg-vue-green text-center">
     <h2 class="text-3xl">Your score is: {{ score }} / {{ quiz.length }}</h2>
+    <VBtn @click="resetQuiz" class="mt-4">PLay again</VBtn>
   </div>
 </template>
