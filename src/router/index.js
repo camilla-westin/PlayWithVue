@@ -46,6 +46,11 @@ const router = createRouter({
       name: "quotegenerator",
       component: () => import("../views/QuoteGeneratorView.vue"),
     },
+    {
+      path: "/quiz",
+      name: "quiz",
+      component: () => import("../views/QuizView.vue"),
+    },
   ],
 });
 

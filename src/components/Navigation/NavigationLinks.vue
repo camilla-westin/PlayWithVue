@@ -59,5 +59,13 @@ import { RouterLink } from "vue-router";
         color="#000000"
       ></v-list-item>
     </router-link>
+    <router-link to="/quiz">
+      <v-list-item
+        prepend-icon="mdi-format-list-bulleted-type"
+        title="Quiz"
+        value="quiz"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
   </v-list>
 </template>
