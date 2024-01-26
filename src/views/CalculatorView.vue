@@ -1,7 +1,5 @@
 <script setup>
-import QuoteGenerator from "@/components/QuoteGenerator.vue";
-import Carousel from "@/components/Carousels/VCarousel.vue";
-import Calculator from "@/components/Calculator.vue";
+import Calculator from "@/components/Calculator/Calculator.vue";
 </script>
 <template>
   <VContainer>
