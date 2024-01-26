@@ -12,11 +12,11 @@ import { RouterLink } from "vue-router";
         value="home"
       ></v-list-item>
     </router-link>
-    <router-link to="/about">
+    <router-link to="/calculator">
       <v-list-item
-        prepend-icon="mdi-information"
-        title="About"
-        value="about"
+        prepend-icon="mdi-calculator-variant"
+        title="Calculator"
+        value="calculator"
       ></v-list-item>
     </router-link>
     <router-link to="/movies">
@@ -40,6 +40,22 @@ import { RouterLink } from "vue-router";
         prepend-icon="mdi-fish"
         title="Aquarium"
         value="aquarium"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
+    <router-link to="/carousels">
+      <v-list-item
+        prepend-icon="mdi-image-area"
+        title="Carousels"
+        value="carousels"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
+    <router-link to="/quotegenerator">
+      <v-list-item
+        prepend-icon="mdi-format-quote-close"
+        title="Quote generator"
+        value="quotegenerator"
         color="#000000"
       ></v-list-item>
     </router-link>

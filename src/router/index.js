@@ -11,9 +11,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
+      path: "/calculator",
+      name: "calculator",
+      component: () => import("../views/CalculatorView.vue"),
     },
     {
       path: "/movies",
@@ -35,6 +35,16 @@ const router = createRouter({
       path: "/aquarium",
       name: "aquarium",
       component: () => import("../views/AquariumView.vue"),
+    },
+    {
+      path: "/carousels",
+      name: "carousels",
+      component: () => import("../views/CarouselsView.vue"),
+    },
+    {
+      path: "/quotegenerator",
+      name: "quotegenerator",
+      component: () => import("../views/QuoteGeneratorView.vue"),
     },
   ],
 });
