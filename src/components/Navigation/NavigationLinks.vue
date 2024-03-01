@@ -43,6 +43,14 @@ import { RouterLink } from "vue-router";
         color="#000000"
       ></v-list-item>
     </router-link>
+    <router-link to="/scrolllist">
+      <v-list-item
+        prepend-icon="mdi-format-list-bulleted"
+        title="Scroll list"
+        value="scrolllist"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
     <router-link to="/carousels">
       <v-list-item
         prepend-icon="mdi-image-area"

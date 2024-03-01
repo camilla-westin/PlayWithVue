@@ -51,6 +51,11 @@ const router = createRouter({
       name: "quiz",
       component: () => import("../views/QuizView.vue"),
     },
+    {
+      path: "/scrolllist",
+      name: "scrolllist",
+      component: () => import("../views/ScrollListView.vue"),
+    },
   ],
 });
 
