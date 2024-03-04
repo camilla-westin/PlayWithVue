@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from "vue";
 import { ref } from "vue";
 
 defineProps({
@@ -10,6 +11,10 @@ defineProps({
 
 const container = ref(null);
 const indexToScroll = ref(0);
+
+const vFocus = {
+  mounted: (el) => el.focus(),
+};
 
 function scrollToIndex() {
   const itemHeight = 66;
@@ -37,6 +42,7 @@ function scrollToIndex() {
       v-model.number="indexToScroll"
       type="text"
       class="w-32 p-2 border mr-2"
+      v-focus
     />
     <button class="bg-blue-500 py-2 px-4 rounded" @click="scrollToIndex">
       Scroll to
