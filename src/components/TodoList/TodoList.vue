@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import TodoItem from "./TodoItem.vue";
 
 const newTodo = ref("");
 const todos = ref([]);
@@ -13,12 +14,15 @@ function addTodo() {
   todos.value.push({
     id: randomId(),
     text: newTodo.value,
+    completed: false,
   });
   newTodo.value = "";
 }
 
 function removeTodo(id) {
-  completedTodos.value.push(todos.value.find((todo) => todo.id === id));
+  const completedTodo = todos.value.find((todo) => todo.id === id);
+  completedTodo.completed = true;
+  completedTodos.value.push(completedTodo);
   todos.value = todos.value.filter((todo) => todo.id !== id);
 }
 </script>
@@ -33,23 +37,20 @@ function removeTodo(id) {
     />
 
     <ul>
-      <li
+      <TodoItem
         v-for="(todo, index) in todos"
-        :key="todo.id"
-        class="bg-gray-100 rounded-sm h-12 p-2 mb-2"
-      >
-        <input type="checkbox" class="mr-2" @click="removeTodo(todo.id)" />
-        {{ todo.text }}
-      </li>
+        :key="index"
+        :todo="todo"
+        @remove-todo="removeTodo(todo.id)"
+      />
     </ul>
 
     <ul>
-      <li
+      <TodoItem
         v-for="(todo, index) in completedTodos"
-        class="line-through bg-gray-100 rounded-sm h-12 p-2 mb-2"
-      >
-        {{ todo.text }}
-      </li>
+        :key="index"
+        :todo="todo"
+      />
     </ul>
   </div>
 </template>
