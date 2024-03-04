@@ -56,6 +56,11 @@ const router = createRouter({
       name: "scrolllist",
       component: () => import("../views/ScrollListView.vue"),
     },
+    {
+      path: "/todolist",
+      name: "todolist",
+      component: () => import("../views/TodoListView.vue"),
+    },
   ],
 });
 

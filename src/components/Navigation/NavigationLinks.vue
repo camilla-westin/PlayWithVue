@@ -75,5 +75,13 @@ import { RouterLink } from "vue-router";
         color="#000000"
       ></v-list-item>
     </router-link>
+    <router-link to="/todolist">
+      <v-list-item
+        prepend-icon="mdi-checkbox-marked-outline"
+        title="Todo list"
+        value="todolist"
+        color="#000000"
+      ></v-list-item>
+    </router-link>
   </v-list>
 </template>
